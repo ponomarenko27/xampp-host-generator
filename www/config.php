@@ -1,8 +1,9 @@
 <?php
 $domains_root = dirname( __FILE__, 3 );
+$server_admin_email = 'ponomarenko27@gmail.com';
 
 $hosts_file_path = 'C:\Windows\System32\drivers\etc\hosts';
-$vhosts_file_path = 'F:\xampp\apache\conf\extra\httpd-vhosts.conf';
+$vhosts_file_path = 'C:\xampp\apache\conf\extra\httpd-vhosts.conf';
 
 $generated_opening = "\n" . '### START x-host-generator ###';
 $generated_closing = '### END x-host-generator ###' . "\n";
@@ -21,7 +22,7 @@ $vhosts_pattern = '<VirtualHost *:80>
 		Allow from all
 		Require all granted
 	</Directory>
-	ServerAdmin volodymyr.ponomarenko@ibm.com
+	ServerAdmin ' . $server_admin_email . '
 </VirtualHost>
 <VirtualHost *:443>
 	ServerName %1$s
@@ -36,7 +37,7 @@ $vhosts_pattern = '<VirtualHost *:80>
 		Allow from all
 		Require all granted
 	</Directory>
-	ServerAdmin volodymyr.ponomarenko@ibm.com
+	ServerAdmin ' . $server_admin_email . '
 	SSLEngine on
 	SSLCertificateFile "conf/ssl.crt/server.crt"
 	SSLCertificateKeyFile "conf/ssl.key/server.key"
@@ -68,7 +69,7 @@ $default_hosts = "# Copyright (c) 1993-2009 Microsoft Corp.
 #	127.0.0.1       localhost
 #	::1             localhost
 
-127.0.0.1       localhost
+127.0.0.1 		localhost
 127.0.0.1 		x-host-generator.com
 127.0.0.1 		www.x-host-generator.com";
 
@@ -79,7 +80,7 @@ $default_vhosts = '# Virtual Hosts
 
 # If you want to maintain multiple domains/hostnames on your
 # machine you can setup VirtualHost containers for them. Most configurations
-# use only name-based virtual hosts so the server doesn\'t need to worry about
+# use only name-based virtual hosts so the server doesn’t need to worry about
 # IP addresses. This is indicated by the asterisks in the directives below.
 #
 # Please see the documentation at 
@@ -92,7 +93,7 @@ $default_vhosts = '# Virtual Hosts
 #
 # Use name-based virtual hosting.
 #
-##NameVirtualHost *:80
+NameVirtualHost *:80
 #
 # VirtualHost example:
 # Almost any Apache directive may go into a VirtualHost container.
@@ -101,23 +102,21 @@ $default_vhosts = '# Virtual Hosts
 #
 ##<VirtualHost *:80>
     ##ServerAdmin webmaster@dummy-host.example.com
-    ##DocumentRoot "F:/xampp/htdocs/dummy-host.example.com"
+    ##DocumentRoot "C:/xampp/htdocs/dummy-host.example.com"
     ##ServerName dummy-host.example.com
     ##ServerAlias www.dummy-host.example.com
     ##ErrorLog "logs/dummy-host.example.com-error.log"
     ##CustomLog "logs/dummy-host.example.com-access.log" common
 ##</VirtualHost>
-
 ##<VirtualHost *:80>
     ##ServerAdmin webmaster@dummy-host2.example.com
-    ##DocumentRoot "F:/xampp/htdocs/dummy-host2.example.com"
+    ##DocumentRoot "C:/xampp/htdocs/dummy-host2.example.com"
     ##ServerName dummy-host2.example.com
     ##ErrorLog "logs/dummy-host2.example.com-error.log"
     ##CustomLog "logs/dummy-host2.example.com-access.log" common
 ##</VirtualHost>
-
 <VirtualHost *:80>
-       DocumentRoot "F:/xampp/htdocs/"
+       DocumentRoot "C:/xampp/htdocs/"
        ServerName localhost
 </VirtualHost>
 
@@ -126,30 +125,30 @@ $default_vhosts = '# Virtual Hosts
     ServerAlias www.x-host-generator.com
     ErrorLog "logs/x-host-generator.com-error.log"
     CustomLog "logs/x-host-generator.com-access.log" common
-    DocumentRoot "F:\x-server\home\var\vhosts\x-host-generator.com\www"
-    <Directory "F:\x-server\home\var\vhosts\x-host-generator.com\www">
+    DocumentRoot "' . $domains_root . '\x-host-generator.com\www"
+    <Directory "' . $domains_root . '\x-host-generator.com\www">
         Options Indexes FollowSymLinks Includes ExecCGI
         AllowOverride All
         Order allow,deny
         Allow from all
         Require all granted
     </Directory>
-    ServerAdmin volodymyr.ponomarenko@ibm.com
+    ServerAdmin ' . $server_admin_email . '
 </VirtualHost>
 <VirtualHost *:443>
     ServerName x-host-generator.com
     ServerAlias www.x-host-generator.com
     ErrorLog "logs/x-host-generator.com-error.log"
     CustomLog "logs/x-host-generator.com-access.log" common
-    DocumentRoot "F:\x-server\home\var\vhosts\x-host-generator.com\www"
-    <Directory "F:\x-server\home\var\vhosts\x-host-generator.com\www">
+    DocumentRoot "' . $domains_root . '\x-host-generator.com\www"
+    <Directory "' . $domains_root . '\x-host-generator.com\www">
         Options Indexes FollowSymLinks Includes ExecCGI
         AllowOverride All
         Order allow,deny
         Allow from all
         Require all granted
     </Directory>
-    ServerAdmin volodymyr.ponomarenko@ibm.com
+    ServerAdmin ' . $server_admin_email . '
     SSLEngine on
     SSLCertificateFile "conf/ssl.crt/server.crt"
     SSLCertificateKeyFile "conf/ssl.key/server.key"

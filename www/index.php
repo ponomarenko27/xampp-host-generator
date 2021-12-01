@@ -18,7 +18,7 @@
 				<td><a href="/show-vhosts.php">Show Local Domains</a></td>
 				<td><a href="http://localhost/phpmyadmin/">phpMyAdmin</a></td>
 				<td><a href="/phpinfo.php">phpinfo()</a></td>
-				<td><input value="file:///F:/xampp/apache/logs/" type="text" id="error_log_input" onclick="copy_error_log_input()" /></td>
+				<td><input value="file:///C:/xampp/apache/logs/" type="text" id="error_log_input" onclick="copy_error_log_input()" /></td>
 			</tr>
 			<tr>
 				<td>------</td>
