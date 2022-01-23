@@ -7,7 +7,7 @@
 		<style>
 			body
 			{
-				font-size: 1.5rem;
+				font-size: 1.25rem;
 			}
 		</style>
 	</head>
@@ -20,7 +20,7 @@
 				<td><a href="/phpinfo.php">phpinfo()</a></td>
 				<td><input value="file:///C:/xampp/apache/logs/" type="text" id="error_log_input" onclick="copy_error_log_input()" /></td>
 			</tr>
-			<tr>
+			<tr style="background: #cccccc;">
 				<td>------</td>
 				<td>------</td>
 				<td>------</td>
@@ -28,20 +28,13 @@
 				<td>------</td>
 			</tr>
 			<tr>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-			</tr>
-			<tr>
-				<td>vHosts file (XAMPP Conf.)</td>
+				<td>vHosts file (XAMPP Config)</td>
 				<td><a href="/look-vhosts.php">Look</a></td>
 				<td><a href="/generate-vhosts.php">Generate</a></td>
 				<td><a href="/cleanup-vhosts.php">Clean Up</a></td>
 				<td><a href="/set-default-vhosts.php">Set Default</a></td>
 			</tr>
-			<tr>
+			<tr style="background: #cccccc;">
 				<td>------</td>
 				<td>------</td>
 				<td>------</td>
@@ -49,14 +42,7 @@
 				<td>------</td>
 			</tr>
 			<tr>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-				<td>------</td>
-			</tr>
-			<tr>
-				<td>Hosts file (Windows)</td>
+				<td>Hosts file (OS)</td>
 				<td><a href="/look-hosts.php">Look</a></td>
 				<td><a href="/generate-hosts.php">Generate</a></td>
 				<td><a href="/cleanup-hosts.php">Clean Up</a></td>

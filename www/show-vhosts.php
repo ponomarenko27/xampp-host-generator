@@ -12,26 +12,31 @@ if ( $domains_dir = opendir( $domains_root ) ) {
 			$single_domain != "." 
 			&& $single_domain != ".." 
 			&& ( $single_domain[ 0 ] != '.' )
+			&& ( strpos( $single_domain, '.' ) !== false )
+			&& ( strpos( $single_domain, ' ' ) === false )
+			&& ( strpos( $single_domain, '_' ) === false )
 		) { 
 			// domain
-			if ( file_exists( $domains_root . '\\' . $single_domain . '\\' . 'www' ) ) {
+			if ( file_exists( $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . 'www' ) ) {
 				$domains[] = array( 
 					'name' => $single_domain,
-					'path' => $domains_root . '\\' . $single_domain . '\\' . 'www',
+					'path' => $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . 'www',
 				);
 				// subdomains
-				if ( $subdomains_dir = opendir( $domains_root . '\\' . $single_domain ) ) {
+				if ( $subdomains_dir = opendir( $domains_root . DIRECTORY_SEPARATOR . $single_domain ) ) {
 					while( ( $single_subdomain = readdir( $subdomains_dir ) ) !== false ) {
 						if ( 
 							$single_subdomain != "." 
 							&& $single_subdomain != ".." 
 							&& $single_subdomain != "www" 
 							&& ( $single_subdomain[ 0 ] != '.' )
-							&& is_dir( $domains_root . '\\' . $single_domain . '\\' . $single_subdomain )
+							&& ( strpos( $single_subdomain, ' ' ) === false )
+							&& ( strpos( $single_subdomain, '_' ) === false )
+							&& is_dir( $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . $single_subdomain )
 						) { 
 							$domains[] = array( 
 								'name' => $single_subdomain . '.' . $single_domain,
-								'path' => $domains_root . '\\' . $single_domain . '\\' . $single_subdomain,
+								'path' => $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . $single_subdomain,
 							);
 						} // if
 					} // while

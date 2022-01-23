@@ -9,29 +9,34 @@ $domains = array();
 if ( $domains_dir = opendir( $domains_root ) ) {
 	while( ( $single_domain = readdir( $domains_dir ) ) !== false ) {
 		if ( 
-			$single_domain != "." 
-			&& $single_domain != ".." 
+			$single_domain != '.' 
+			&& $single_domain != '..' 
 			&& ( $single_domain[ 0 ] != '.' )
+			&& ( strpos( $single_domain, '.' ) !== false )
+			&& ( strpos( $single_domain, ' ' ) === false )
+			&& ( strpos( $single_domain, '_' ) === false )
 		) { 
 			// domain
-			if ( file_exists( $domains_root . '\\' . $single_domain . '\\' . 'www' ) ) {
+			if ( file_exists( $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . 'www' ) ) {
 				$domains[] = array( 
 					'name' => $single_domain,
-					'path' => $domains_root . '\\' . $single_domain . '\\' . 'www',
+					'path' => $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . 'www',
 				);
 				// subdomains
-				if ( $subdomains_dir = opendir( $domains_root . '\\' . $single_domain ) ) {
+				if ( $subdomains_dir = opendir( $domains_root . DIRECTORY_SEPARATOR . $single_domain ) ) {
 					while( ( $single_subdomain = readdir( $subdomains_dir ) ) !== false ) {
 						if ( 
-							$single_subdomain != "." 
-							&& $single_subdomain != ".." 
-							&& $single_subdomain != "www" 
+							$single_subdomain != '.' 
+							&& $single_subdomain != '..' 
+							&& $single_subdomain != 'www' 
 							&& ( $single_subdomain[ 0 ] != '.' )
-							&& is_dir( $domains_root . '\\' . $single_domain . '\\' . $single_subdomain )
+							&& ( strpos( $single_subdomain, ' ' ) === false )
+							&& ( strpos( $single_subdomain, '_' ) === false )
+							&& is_dir( $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . $single_subdomain )
 						) { 
 							$domains[] = array( 
 								'name' => $single_subdomain . '.' . $single_domain,
-								'path' => $domains_root . '\\' . $single_domain . '\\' . $single_subdomain,
+								'path' => $domains_root . DIRECTORY_SEPARATOR . $single_domain . DIRECTORY_SEPARATOR . $single_subdomain,
 							);
 						} // if
 					} // while
@@ -53,13 +58,14 @@ if ( count( $domains ) > 0 ) {
 	$file_content = file_get_contents( $hosts_file_path );
 	$new_file_content = $file_content . $generated_content;
 	// write the content into the file.
+	echo '<pre>';
 	if ( file_put_contents( $hosts_file_path, $new_file_content ) ) {
-echo "<pre><strong>Done. The file is updated with generated hosts.</strong>
+		echo '<strong>Done. The file is updated with generated hosts.</strong>
 
-<strong>Done. The file content after update:</strong>
-" . file_get_contents( $hosts_file_path ) . 
-"</pre>" . "<br />\n";
+<strong>Done. The file content after update:</strong></pre><br />' . "\n\n\n"
+ . file_get_contents( $hosts_file_path ) . "\n\n\n";
 	} else {
-		echo "<strong>Something went wrong!</strong>" . "<br />\n";
+		echo '<strong>Something went wrong!</strong><br />' . "\n";
 	}
+	echo '</pre>' . "\n";
 }

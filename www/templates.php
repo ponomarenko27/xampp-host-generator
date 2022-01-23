@@ -91,25 +91,6 @@ NameVirtualHost *:80
 # The first VirtualHost section is used for all requests that do not
 # match a ##ServerName or ##ServerAlias in any <VirtualHost> block.
 #
-##<VirtualHost *:80>
-    ##ServerAdmin webmaster@dummy-host.example.com
-    ##DocumentRoot "C:/xampp/htdocs/dummy-host.example.com"
-    ##ServerName dummy-host.example.com
-    ##ServerAlias www.dummy-host.example.com
-    ##ErrorLog "logs/dummy-host.example.com-error.log"
-    ##CustomLog "logs/dummy-host.example.com-access.log" common
-##</VirtualHost>
-##<VirtualHost *:80>
-    ##ServerAdmin webmaster@dummy-host2.example.com
-    ##DocumentRoot "C:/xampp/htdocs/dummy-host2.example.com"
-    ##ServerName dummy-host2.example.com
-    ##ErrorLog "logs/dummy-host2.example.com-error.log"
-    ##CustomLog "logs/dummy-host2.example.com-access.log" common
-##</VirtualHost>
-<VirtualHost *:80>
-       DocumentRoot "C:/xampp/htdocs/"
-       ServerName localhost
-</VirtualHost>
 
 <VirtualHost *:80>
     ServerName x-host-generator.com
