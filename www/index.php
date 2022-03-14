@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php require_once( dirname( __FILE__ ) . '/init.php' ); ?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
@@ -18,7 +18,7 @@
 				<td><a href="/show-vhosts.php">Show Local Domains</a></td>
 				<td><a href="http://localhost/phpmyadmin/">phpMyAdmin</a></td>
 				<td><a href="/phpinfo.php">phpinfo()</a></td>
-				<td><input value="file:///C:/xampp/apache/logs/" type="text" id="error_log_input" onclick="copy_error_log_input()" /></td>
+				<td><input style="width: 100%;" value="file:///<?php echo dirname( $config[ 'vhosts_file_path' ], 4 ); ?>/apache/logs/" type="text" id="error_log_input" onclick="copy_error_log_input()" /></td>
 			</tr>
 			<tr style="background: #cccccc;">
 				<td>------</td>
@@ -56,10 +56,6 @@
 				/* Select the text field */
 				copyText.select();
 				copyText.setSelectionRange(0, 99999); /* For mobile devices */
-				/* Requires HTTPS protocol. Copy the text inside the text field */
-				navigator.clipboard.writeText(copyText.value);
-				/* Alert the copied text */
-				alert("Copied to clipboard: " + copyText.value);
 			}
 		</script>
 	</body>

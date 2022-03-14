@@ -1,6 +1,7 @@
 <?php
 $hosts_pattern = '127.0.0.1		%1$s' . "\n" . '127.0.0.1		www.%1$s' . "\n";
-$vhosts_pattern = '<VirtualHost *:80>
+
+$vhosts_pattern_http = '<VirtualHost *:80>
 	ServerName %1$s
 	ServerAlias www.%1$s
 	ErrorLog "logs/%1$s-error.log"
@@ -13,9 +14,10 @@ $vhosts_pattern = '<VirtualHost *:80>
 		Allow from all
 		Require all granted
 	</Directory>
-	ServerAdmin ' . $server_admin_email . '
-</VirtualHost>
-<VirtualHost *:443>
+	ServerAdmin %3$s
+</VirtualHost>' . "\n";
+
+$vhosts_pattern_https = '<VirtualHost *:443>
 	ServerName %1$s
 	ServerAlias www.%1$s
 	ErrorLog "logs/%1$s-error.log"
@@ -28,7 +30,7 @@ $vhosts_pattern = '<VirtualHost *:80>
 		Allow from all
 		Require all granted
 	</Directory>
-	ServerAdmin ' . $server_admin_email . '
+	ServerAdmin %3$s
 	SSLEngine on
 	SSLCertificateFile "conf/ssl.crt/server.crt"
 	SSLCertificateKeyFile "conf/ssl.key/server.key"
@@ -37,8 +39,7 @@ $vhosts_pattern = '<VirtualHost *:80>
 	</FilesMatch>
 </VirtualHost>' . "\n";
 
-
-$default_hosts = "# Copyright (c) 1993-2009 Microsoft Corp.
+$default_hosts_windows = "# Copyright (c) 1993-2009 Microsoft Corp.
 #
 # This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
 #
@@ -62,10 +63,22 @@ $default_hosts = "# Copyright (c) 1993-2009 Microsoft Corp.
 
 127.0.0.1 		localhost
 127.0.0.1 		x-host-generator.com
-127.0.0.1 		www.x-host-generator.com";
+127.0.0.1 		www.x-host-generator.com" . "\n";
 
+$default_hosts_macintosh = "##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1   localhost
+255.255.255.255 broadcasthost
+::1             localhost
 
-$default_vhosts = '# Virtual Hosts
+127.0.0.1       x-host-generator.com
+127.0.0.1 		www.x-host-generator.com" . "\n";
+
+$default_vhosts_http = '# Virtual Hosts
 #
 # Required modules: mod_log_config
 
@@ -93,34 +106,36 @@ NameVirtualHost *:80
 #
 
 <VirtualHost *:80>
-    ServerName x-host-generator.com
-    ServerAlias www.x-host-generator.com
-    ErrorLog "logs/x-host-generator.com-error.log"
-    CustomLog "logs/x-host-generator.com-access.log" common
-    DocumentRoot "' . $domains_root . '\x-host-generator.com\www"
-    <Directory "' . $domains_root . '\x-host-generator.com\www">
+    ServerName %1$s
+    ServerAlias www.%1$s
+    ErrorLog "logs/%1$s-error.log"
+    CustomLog "logs/%1$s-access.log" common
+    DocumentRoot "%2$s"
+    <Directory "%2$s">
         Options Indexes FollowSymLinks Includes ExecCGI
         AllowOverride All
         Order allow,deny
         Allow from all
         Require all granted
     </Directory>
-    ServerAdmin ' . $server_admin_email . '
+    ServerAdmin %3$s
 </VirtualHost>
-<VirtualHost *:443>
-    ServerName x-host-generator.com
-    ServerAlias www.x-host-generator.com
-    ErrorLog "logs/x-host-generator.com-error.log"
-    CustomLog "logs/x-host-generator.com-access.log" common
-    DocumentRoot "' . $domains_root . '\x-host-generator.com\www"
-    <Directory "' . $domains_root . '\x-host-generator.com\www">
+' . "\n";
+
+$default_vhosts_https = '<VirtualHost *:443>
+    ServerName %1$s
+    ServerAlias www.%1$s
+    ErrorLog "logs/%1$s-error.log"
+    CustomLog "logs/%1$s-access.log" common
+    DocumentRoot "%2$s"
+    <Directory "%2$s">
         Options Indexes FollowSymLinks Includes ExecCGI
         AllowOverride All
         Order allow,deny
         Allow from all
         Require all granted
     </Directory>
-    ServerAdmin ' . $server_admin_email . '
+    ServerAdmin %3$s
     SSLEngine on
     SSLCertificateFile "conf/ssl.crt/server.crt"
     SSLCertificateKeyFile "conf/ssl.key/server.key"
@@ -128,4 +143,4 @@ NameVirtualHost *:80
         SSLOptions +StdEnvVars
     </FilesMatch>
 </VirtualHost>
-';
+' . "\n";
